@@ -3,7 +3,7 @@ module github.com/Wenchuan-Zhao/goBlogs
 go 1.14
 
 require (
-	github.com/gin-gonic/gin v1.7.2 // indirect
+	github.com/gin-gonic/gin v1.7.2
 	github.com/go-playground/validator/v10 v10.7.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/json-iterator/go v1.1.11 // indirect
@@ -17,4 +17,12 @@ require (
 	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+)
+
+replace (
+		github.com/Wenchuan-Zhao/goBlogs/pkg/setting => ./pkg/setting
+		github.com/Wenchuan-Zhao/goBlogs/conf    	  => ./pkg/conf
+		github.com/Wenchuan-Zhao/goBlogs/middleware  => ./middleware
+		github.com/Wenchuan-Zhao/goBlogs/models 	  => ./models
+		github.com/Wenchuan-Zhao/goBlogs/routers 	  => ./routers
 )

@@ -1,5 +1,10 @@
 package models
 
+import (
+	"github.com/jinzhu/gorm"
+	"time"
+)
+
 type Tag struct {
 	Model
 
@@ -39,4 +44,47 @@ func AddTag(name string, state int, createdBy string) bool {
 	})
 
 	return true
+}
+
+func ExistTagByID(id int) bool {
+	var tag Tag
+	db.Select("id").Where("id = ?", id).First(&tag)
+	if tag.ID > 0 {
+		return true
+	}
+
+	return false
+}
+
+func DeleteTag(id int) bool {
+	db.Where("id = ?", id).Delete(&Tag{})
+
+	return true
+}
+
+func EditTag(id int, data interface{}) bool {
+	db.Model(&Tag{}).Where("id = ?", id).Updates(data)
+
+	return true
+}
+
+// gorm所支持的回调方法：
+//
+// 创建：BeforeSave、BeforeCreate、AfterCreate、AfterSave
+// 更新：BeforeSave、BeforeUpdate、AfterUpdate、AfterSave
+// 删除：BeforeDelete、AfterDelete
+// 查询：AfterFind
+
+// gorm的回调函数在执行插入动作时会执行
+func (tag *Tag) BeforeCreate(scope *gorm.Scope) error {
+	scope.SetColumn("CreatedOn", time.Now().Unix())
+
+	return nil
+}
+
+// gorm的回调函数在执行更新动作时会执行
+func (tag *Tag) BeforeUpdate(scope *gorm.Scope) error {
+	scope.SetColumn("ModifiedOn", time.Now().Unix())
+
+	return nil
 }

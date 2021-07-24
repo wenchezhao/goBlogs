@@ -1,7 +1,9 @@
 package routers
 
 import (
+	"github.com/Wenchuan-Zhao/goBlogs/middleware/jwt"
 	"github.com/Wenchuan-Zhao/goBlogs/pkg/setting"
+	"github.com/Wenchuan-Zhao/goBlogs/routers/api"
 	v1 "github.com/Wenchuan-Zhao/goBlogs/routers/api/v1"
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +17,13 @@ func InitRouter() *gin.Engine {
 
 	gin.SetMode(setting.RunMode)
 
+	// 新增获取 token 的方法
+	r.GET("/auth", api.GetAuth)
+
 	apiv1 := r.Group("/api/v1")
+
+	// 中间件引用
+	apiv1.Use(jwt.JWT())
 	{
 		// 获取标签列表
 		apiv1.GET("/tags", v1.GetTags)

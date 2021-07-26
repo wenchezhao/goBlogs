@@ -1,13 +1,17 @@
 package routers
 
 import (
+	_ "github.com/Wenchuan-Zhao/goBlogs/docs"
 	"github.com/Wenchuan-Zhao/goBlogs/middleware/jwt"
 	"github.com/Wenchuan-Zhao/goBlogs/pkg/setting"
 	"github.com/Wenchuan-Zhao/goBlogs/routers/api"
 	v1 "github.com/Wenchuan-Zhao/goBlogs/routers/api/v1"
 	"github.com/gin-gonic/gin"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
+// InitRouter initialize routing informatio
 func InitRouter() *gin.Engine {
 	r := gin.New()
 
@@ -17,6 +21,8 @@ func InitRouter() *gin.Engine {
 
 	gin.SetMode(setting.RunMode)
 
+	// swagger 初始化和对应的路由规则
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	// 新增获取 token 的方法
 	r.GET("/auth", api.GetAuth)
 

@@ -14,7 +14,6 @@ require (
 	github.com/json-iterator/go v1.1.11 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mattn/go-isatty v0.0.13 // indirect
-	github.com/robfig/cron v1.2.0
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	github.com/swaggo/gin-swagger v1.3.0
 	github.com/swaggo/swag v1.7.0

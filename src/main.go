@@ -47,7 +47,7 @@ func main() {
 	router := routers.InitRouter()
 
 	s := &http.Server{
-		Addr:           fmt.Sprintf(":%d", setting.ServerSetting.ReadTimeout),
+		Addr:           fmt.Sprintf(":%d", setting.ServerSetting.HttpPort),
 		Handler:        router,
 		ReadTimeout:    setting.ServerSetting.ReadTimeout,
 		WriteTimeout:   setting.ServerSetting.WriteTimeout,

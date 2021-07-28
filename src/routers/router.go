@@ -24,6 +24,8 @@ func InitRouter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	// 新增获取 token 的方法
 	r.GET("/auth", api.GetAuth)
+	// 增加上传照片的路由
+	r.POST("/upload", api.UploadImage)
 
 	apiv1 := r.Group("/api/v1")
 

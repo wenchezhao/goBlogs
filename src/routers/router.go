@@ -18,7 +18,7 @@ func InitRouter() *gin.Engine {
 
 	r.Use(gin.Recovery())
 
-	gin.SetMode(setting.RunMode)
+	gin.SetMode(setting.ServerSetting.RunMode)
 
 	// swagger 初始化和对应的路由规则
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

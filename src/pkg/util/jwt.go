@@ -1,12 +1,11 @@
 package util
 
 import (
-	"github.com/Wenchuan-Zhao/goBlogs/pkg/setting"
 	jwt "github.com/dgrijalva/jwt-go"
 	"time"
 )
 
-var jwtSecret = []byte(setting.JwtSecret)
+var jwtSecret []byte
 
 // 用于避免API的随意调用
 type Claims struct {

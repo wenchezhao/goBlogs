@@ -37,7 +37,7 @@ func GetTags(c *gin.Context) {
 
 	code := e.SUCCESS
 
-	data["lists"] = models.GetTags(util.GetPage(c), setting.PageSize, maps)
+	data["lists"] = models.GetTags(util.GetPage(c), setting.AppSetting.PageSize, maps)
 	data["total"] = models.GetTagTotal(maps)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -51,7 +51,7 @@ func GetTags(c *gin.Context) {
 // @Produce  json
 // @Param name query string true "Name"
 // @Param state query int false "State"
-// @Param created_by query int false "CreatedBy"
+// @Param created_by query string false "CreatedBy"
 // @Success 200 {obejct} SuccessInfo
 // @Router /api/v1/tags [post]
 func AddTag(c *gin.Context) {

@@ -9,6 +9,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/Wenchuan-Zhao/goBlogs/models"
+	"github.com/Wenchuan-Zhao/goBlogs/pkg/logging"
 	"github.com/Wenchuan-Zhao/goBlogs/pkg/setting"
 	"github.com/Wenchuan-Zhao/goBlogs/routers"
 	"log"
@@ -19,24 +21,14 @@ import (
 )
 
 func main() {
-	// 原始方法
-	//router := routers.InitRouter()
-	//
-	//s := &http.Server{
-	//	Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
-	//	Handler:        router,
-	//	ReadTimeout:    setting.ReadTimeout,
-	//	WriteTimeout:   setting.WriteTimeout,
-	//	MaxHeaderBytes: 1 << 20,
-	//}
-	//
-	//s.ListenAndServe()
-
 	//// linux下的优雅重启（"github.com/fvbock/endless"）
-	//endless.DefaultReadTimeOut = setting.ReadTimeout
-	//endless.DefaultWriteTimeOut = setting.WriteTimeout
+	//setting.Setup()
+	//models.Setup()
+	//logging.Setup()
+	//endless.DefaultReadTimeOut = setting.ServerSetting.ReadTimeout
+	//endless.DefaultWriteTimeOut = setting.ServerSetting.WriteTimeout
 	//endless.DefaultMaxHeaderBytes = 1 << 20
-	//endPoint := fmt.Sprintf(":%d", setting.HTTPPort)
+	//endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HTTPPort)
 	//
 	//server := endless.NewServer(endPoint, routers.InitRouter())
 	//server.BeforeBegin = func(add string) {
@@ -48,13 +40,17 @@ func main() {
 	//	log.Printf("Server err: %v", err)
 	//}
 
+	setting.Setup()
+	models.Setup()
+	logging.Setup()
+
 	router := routers.InitRouter()
 
 	s := &http.Server{
-		Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
+		Addr:           fmt.Sprintf(":%d", setting.ServerSetting.ReadTimeout),
 		Handler:        router,
-		ReadTimeout:    setting.ReadTimeout,
-		WriteTimeout:   setting.WriteTimeout,
+		ReadTimeout:    setting.ServerSetting.ReadTimeout,
+		WriteTimeout:   setting.ServerSetting.WriteTimeout,
 		MaxHeaderBytes: 1 << 20,
 	}
 

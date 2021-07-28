@@ -81,3 +81,10 @@ func DeleteArticle(id int) bool {
 //
 //	return nil
 //}
+
+// 文章的硬删除
+func CleanAllArticle() bool {
+	db.Unscoped().Where("deleted_on != ? ", 0).Delete(&Article{})
+
+	return true
+}
